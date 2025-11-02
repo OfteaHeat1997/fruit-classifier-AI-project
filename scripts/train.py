@@ -47,7 +47,12 @@ from tensorflow.keras.callbacks import TensorBoard
 # ============================================================================
 
 # Dataset paths (adjust if your data is elsewhere)
-DATA_ROOT = r"C:\Users\maria\Desktop\fruit_ripeness\data\fruit_ripeness_dataset\fruit_ripeness_dataset\fruit_archive\dataset"
+# Auto-detect Windows vs Linux path
+if os.name == 'nt':  # Windows
+    DATA_ROOT = r"C:\Users\maria\Desktop\fruit_ripeness\data\fruit_ripeness_dataset\fruit_ripeness_dataset\fruit_archive\dataset"
+else:  # Linux/WSL
+    DATA_ROOT = "/mnt/c/Users/maria/Desktop/fruit_ripeness/data/fruit_ripeness_dataset/fruit_ripeness_dataset/fruit_archive/dataset"
+
 TRAIN_DIR = os.path.join(DATA_ROOT, "train")
 TEST_DIR = os.path.join(DATA_ROOT, "test")
 

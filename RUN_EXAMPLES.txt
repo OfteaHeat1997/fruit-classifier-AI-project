@@ -1,0 +1,96 @@
+================================================================================
+FRUIT CLASSIFIER - COPY & PASTE COMMANDS FOR PORTFOLIO
+================================================================================
+Author: Maria Paula Salazar Agudelo
+Course: Minor in AI & Society
+
+================================================================================
+STEP 1: ACTIVATE ENVIRONMENT
+================================================================================
+
+source /home/paula/.virtualenvs/fruit-classifier-AI-project/bin/activate
+
+You should see: (fruit-classifier-AI-project) at start of terminal
+
+================================================================================
+STEP 2: VERIFY TENSORFLOW IS WORKING
+================================================================================
+
+python -c "import tensorflow as tf; import numpy as np; import cv2; import keras; print('✓ TensorFlow:', tf.__version__); print('✓ NumPy:', np.__version__); print('✓ OpenCV:', cv2.__version__); print('✓ Keras:', keras.__version__); print('\n✓✓✓ ALL PACKAGES WORKING! ✓✓✓')"
+
+Expected output:
+✓ TensorFlow: 2.20.0
+✓ NumPy: 2.2.6
+✓ OpenCV: 4.12.0
+✓ Keras: 3.12.0
+
+✓✓✓ ALL PACKAGES WORKING! ✓✓✓
+
+================================================================================
+STEP 3: RUN PREDICTION - FRESH APPLE
+================================================================================
+
+python scripts/predict.py "/mnt/c/Users/maria/Desktop/fruit_ripeness/data/fruit_ripeness_dataset/fruit_ripeness_dataset/fruit_archive/dataset/test/freshapples/Screen Shot 2018-06-08 at 4.59.44 PM.png"
+
+Expected result: freshapples (100% confidence)
+
+================================================================================
+STEP 4: RUN PREDICTION - ROTTEN BANANA
+================================================================================
+
+python scripts/predict.py "/mnt/c/Users/maria/Desktop/fruit_ripeness/data/fruit_ripeness_dataset/fruit_ripeness_dataset/fruit_archive/dataset/test/rottenbanana/Screen Shot 2018-06-08 at 5.16.48 PM.png"
+
+Expected result: rottenbanana (99%+ confidence)
+
+================================================================================
+STEP 5: RUN PREDICTION - FRESH ORANGE
+================================================================================
+
+python scripts/predict.py "/mnt/c/Users/maria/Desktop/fruit_ripeness/data/fruit_ripeness_dataset/fruit_ripeness_dataset/fruit_archive/dataset/test/freshoranges/Screen Shot 2018-06-08 at 5.14.42 PM.png"
+
+Expected result: freshoranges (100% confidence)
+
+================================================================================
+STEP 6: VIEW ALL PREDICTIONS
+================================================================================
+
+python scripts/view_history.py
+
+Shows all predictions you made with dates and confidence scores
+
+================================================================================
+STEP 7: OPEN JUPYTER NOTEBOOK FOR VISUALIZATIONS
+================================================================================
+
+jupyter notebook
+
+Then open: notebooks/03_Model_Evaluation.ipynb
+Click: Run All
+
+This shows:
+- Confusion matrix
+- Accuracy charts
+- Visual grid of predictions
+- Error analysis
+
+================================================================================
+PORTFOLIO SCREENSHOTS TO TAKE:
+================================================================================
+
+1. Terminal showing activated environment
+2. TensorFlow verification output
+3. Prediction output showing 100% confidence
+4. Multiple predictions on different fruits
+5. Jupyter notebook confusion matrix
+6. Jupyter notebook prediction grid
+
+================================================================================
+IMPORTANT NOTES:
+================================================================================
+
+✓ Use FORWARD SLASH / not backslash \
+✓ Always activate environment first
+✓ TensorFlow warnings about GPU are normal (it uses CPU)
+✓ Predictions take 2-3 seconds each
+
+================================================================================
