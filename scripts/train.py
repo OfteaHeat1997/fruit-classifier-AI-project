@@ -40,6 +40,7 @@ from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import TensorBoard
 
 # ============================================================================
 # CONFIGURATION - Adjust these if needed
@@ -396,11 +397,27 @@ def main():
     print("  - val_accuracy should be close to accuracy (no overfitting)")
     print()
 
+    # Setup TensorBoard for live monitoring
+    # Creates logs that you can view in real-time with: tensorboard --logdir logs/fit
+    log_dir = os.path.join("logs", "fit", datetime.now().strftime("%Y%m%d-%H%M%S"))
+    tensorboard_callback = TensorBoard(
+        log_dir=log_dir,
+        histogram_freq=1,           # Log weight histograms every epoch
+        write_graph=True,           # Save model architecture
+        update_freq='epoch'         # Update after each epoch
+    )
+    print(f"TensorBoard logs will be saved to: {log_dir}")
+    print("To view training live, run in another terminal:")
+    print("    bash scripts/start_tensorboard.sh")
+    print("Then open: http://localhost:6006")
+    print()
+
     # Train the model
     history = model.fit(
         train_generator,
         epochs=EPOCHS,
         validation_data=test_generator,
+        callbacks=[tensorboard_callback],  # Add TensorBoard callback
         verbose=1  # Show progress bar
     )
 
