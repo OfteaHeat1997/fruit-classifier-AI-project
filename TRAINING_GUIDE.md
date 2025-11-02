@@ -61,7 +61,7 @@ Input Image (224×224 pixels, RGB)
 [MobileNetV2 Base - FROZEN]
    - Already knows edges, shapes, colors
    - Trained on 1.4 million images
-   - We DON'T change these weights
+   - These weights DON'T change
         ↓
 [Our Custom Layers]
    - GlobalAveragePooling (reduce dimensions)
@@ -129,7 +129,7 @@ Each epoch (one complete pass through all training images):
 ### Phase 4: Monitoring and Validation
 
 **What happens:**
-During training, we watch:
+During training, I monitor:
 - **Training accuracy:** How well it learns the training images
 - **Validation accuracy:** How well it works on NEW images (this matters!)
 - **Loss:** How "wrong" the predictions are (lower = better)
@@ -241,7 +241,7 @@ Imagine studying flashcards:
 
 **What it is:** Randomly modifying training images
 
-**Transformations we apply:**
+**Transformations applied:**
 1. **Rotation (±20°):** Tilt the image slightly
 2. **Horizontal flip:** Mirror the image
 3. **Zoom (±20%):** Zoom in/out randomly
@@ -369,7 +369,7 @@ loss: 0.2456 - accuracy: 0.9123 - val_loss: 0.3567 - val_accuracy: 0.8756
 - Further training won't help much
 - Might start overfitting if you continue
 
-**Solution:** Stop training (we have early stopping built-in)
+**Solution:** Stop training (I have early stopping built-in)
 
 ---
 

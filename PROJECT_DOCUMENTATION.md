@@ -56,7 +56,7 @@ A machine learning system that looks at a photo of a fruit and tells you if it's
 #### 1. TensorFlow / Keras
 **What it is:** Framework for building neural networks
 
-**What we use it for:**
+**What I use it for:**
 - Building the model
 - Training
 - Making predictions
@@ -64,39 +64,39 @@ A machine learning system that looks at a photo of a fruit and tells you if it's
 #### 2. SQLite3
 **What it is:** Lightweight database (no server needed!)
 
-**What we use it for:**
+**What I use it for:**
 - Save every prediction
 - Track testing history
 - Generate reports
-- Prove what we tested
+- Prove what I tested
 
 **Beginner explanation:** Like an Excel file but much more powerful - stores all your data in an organized way
 
 #### 3. NumPy
 **What it is:** Mathematical library
 
-**What we use it for:**
+**What I use it for:**
 - Image processing
 - Array operations
 
 #### 4. Matplotlib
 **What it is:** Graphing library
 
-**What we use it for:**
+**What I use it for:**
 - Show images
 - Create charts
 
 #### 5. Pillow (PIL)
 **What it is:** Image processing
 
-**What we use it for:**
+**What I use it for:**
 - Load images
 - Resize images
 
 #### 6. Flask
 **What it is:** Web framework
 
-**What we use it for:**
+**What I use it for:**
 - Web interface
 - Camera access
 - Display predictions
@@ -552,7 +552,7 @@ def get_recent_predictions(limit=10):
 ```
 
 #### `get_accuracy_stats()`
-**What it does:** Calculate accuracy from predictions where we know the truth
+**What it does:** Calculate accuracy from predictions where the truth is known
 
 **Returns:** Dictionary with statistics
 

@@ -30,7 +30,7 @@ models/*.tflite
 !models/class_labels.json
 !models/training_config.json
 
-# Logs
+# Logs and TensorBoard data
 logs/
 *.log
 tensorboard_logs/
@@ -49,5 +49,8 @@ Thumbs.db
 uploads/
 temp/
 
-# Environment
+# Environment and Virtual Environment
 .env
+venv/
+.venv/
+.venv_broken_backup/
