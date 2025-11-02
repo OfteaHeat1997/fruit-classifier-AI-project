@@ -60,13 +60,54 @@ git clone https://github.com/OfteaHeat1997/fruit-classifier-AI-project.git
 cd fruit-classifier-AI-project
 ```
 
-### 2. Install dependencies
+### 2. Set up virtual environment (WSL Ubuntu)
+
+**IMPORTANT:** Use virtual environment to keep dependencies isolated.
+
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Your prompt should now show (venv)
+```
+
+**Note:** Always activate venv before running scripts:
+```bash
+source venv/bin/activate
+```
+
+**For Windows PowerShell users:**
+```powershell
+# Create venv
+python -m venv venv
+
+# Activate venv
+venv\Scripts\Activate.ps1
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Download dataset
+### 4. Verify model files
+
+**GOOD NEWS:** The model is already trained and included in this repository!
+
+Check that these files exist in `models/` folder:
+- `fruit_classifier.keras` (31 MB - trained model)
+- `class_labels.json` (class names)
+- `training_config.json` (training parameters)
+
+**Training time:** This model was trained for ~12 hours, so you don't need to retrain!
+
+### 5. Download dataset (Optional)
+
+**Only needed if you want to retrain the model or run analysis notebooks.**
 
 Dataset used: Fruit Ripeness Dataset from Kaggle
 - Place in: `data/` folder
@@ -76,16 +117,39 @@ Dataset used: Fruit Ripeness Dataset from Kaggle
 
 ## Usage
 
-### Train the model
+### Make predictions (Ready to use!)
+
+The model is already trained, you can use it immediately:
+
+```bash
+# Activate venv first
+source venv/bin/activate
+
+# Make prediction on any fruit image
+python scripts/predict.py path/to/image.jpg
+
+# Example (if you have test images)
+python scripts/predict.py test_images/apple1.jpg
+```
+
+### View prediction history
+
+```bash
+python scripts/view_history.py
+```
+
+### Visualize predictions
+
+```bash
+python scripts/visualize_predictions.py
+```
+
+### Train the model (Optional - only if retraining)
+
+**Note:** Model is already trained, only retrain if you want to experiment!
 
 ```bash
 python scripts/train.py
-```
-
-### Make predictions
-
-```bash
-python scripts/predict.py path/to/image.jpg
 ```
 
 ### Run notebooks

@@ -1,0 +1,23 @@
+{
+  "training_date": "2025-10-30T00:43:10.959064",
+  "num_classes": 9,
+  "class_names": [
+    "freshapples",
+    "freshbanana",
+    "freshoranges",
+    "rottenapples",
+    "rottenbanana",
+    "rottenoranges",
+    "unripe apple",
+    "unripe banana",
+    "unripe orange"
+  ],
+  "num_training_images": 16217,
+  "num_test_images": 3739,
+  "image_size": 224,
+  "batch_size": 32,
+  "epochs_trained": 50,
+  "final_test_accuracy": 0.9983952641487122,
+  "final_test_loss": 0.012115330435335636,
+  "class_weights": {
+    

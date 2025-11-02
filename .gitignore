@@ -20,12 +20,13 @@ data/
 *.csv
 *.json
 
-# Models (too large for git)
-models/*.keras
+# Models - KEEP the trained model (31 MB, trained for 12 hours)
+# Note: fruit_classifier.keras is included in repo
 models/*.h5
 models/*.tflite
 
-# Keep model configs
+# Keep model files (needed for predictions)
+!models/fruit_classifier.keras
 !models/class_labels.json
 !models/training_config.json
 
