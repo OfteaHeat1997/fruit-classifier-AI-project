@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Data
+data/
+*.csv
+*.json
+
+# Models (too large for git)
+models/*.keras
+models/*.h5
+models/*.tflite
+
+# Keep model configs
+!models/class_labels.json
+!models/training_config.json
+
+# Logs
+logs/
+*.log
+tensorboard_logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+uploads/
+temp/
+
+# Environment
+.env
