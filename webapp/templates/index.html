@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Ripeness Classifier</title>
+    <style>
+        /* Simple, clean styling */
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Upload area */
+        .upload-area {
+            background: white;
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #4CAF50;
+        }
+
+        .upload-area.dragover {
+            border-color: #4CAF50;
+            background: #f0fff0;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .upload-btn:hover {
+            background: #45a049;
+        }
+
+        /* Preview */
+        .preview-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        /* Results */
+        .result-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result-container.show {
+            display: block;
+        }
+
+        .prediction {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .confidence {
+            font-size: 18px;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Confidence bar */
+        .confidence-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        /* All predictions */
+        .all-predictions {
+            margin-top: 20px;
+        }
+
+        .all-predictions h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prediction-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error */
+        .error {
+            color: #d32f2f;
+            text-align: center;
+            padding: 15px;
+            background: #ffebee;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fruit Ripeness Classifier</h1>
+    <p class="subtitle">Upload a fruit image to check if it's Fresh, Rotten, or Unripe</p>
+
+    <!-- Upload Area -->
+    <div class="upload-area" id="upload-area">
+        <p>Drag & drop an image here</p>
+        <p>or</p>
+        <button class="upload-btn" onclick="document.getElementById('file-input').click()">
+            Choose File
+        </button>
+        <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <!-- Image Preview -->
+    <div class="preview-container">
+        <img id="preview-image" alt="Preview">
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Analyzing image...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error" id="error"></div>
+
+    <!-- Results -->
+    <div class="result-container" id="result-container">
+        <div class="prediction" id="prediction-text"></div>
+        <div class="confidence" id="confidence-text"></div>
+        <div class="confidence-bar">
+            <div class="confidence-fill" id="confidence-fill"></div>
+        </div>
+
+        <div class="all-predictions">
+            <h3>All Predictions:</h3>
+            <div id="all-predictions-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>AI Model: MobileNetV2 | Made by Maria Paula Salazar Agudelo</p>
+    </footer>
+
+    <script>
+        // Get DOM elements
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const previewImage = document.getElementById('preview-image');
+        const loading = document.getElementById('loading');
+        const errorDiv = document.getElementById('error');
+        const resultContainer = document.getElementById('result-container');
+        const predictionText = document.getElementById('prediction-text');
+        const confidenceText = document.getElementById('confidence-text');
+        const confidenceFill = document.getElementById('confidence-fill');
+        const allPredictionsList = document.getElementById('all-predictions-list');
+
+        // Drag and drop handlers
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleFile(file);
+            }
+        });
+
+        // File input handler
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        });
+
+        // Handle file selection
+        function handleFile(file) {
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+
+            // Send to API
+            uploadImage(file);
+        }
+
+        // Upload image to API
+        async function uploadImage(file) {
+            // Reset UI
+            loading.classList.add('show');
+            errorDiv.classList.remove('show');
+            resultContainer.classList.remove('show');
+
+            try {
+                // Create form data
+                const formData = new FormData();
+                formData.append('image', file);
+
+                // Send POST request to API
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                // Hide loading
+                loading.classList.remove('show');
+
+                if (data.success) {
+                    // Show results
+                    showResults(data);
+                } else {
+                    // Show error
+                    showError(data.error || 'Prediction failed');
+                }
+            } catch (error) {
+                loading.classList.remove('show');
+                showError('Failed to connect to server. Make sure the API is running.');
+            }
+        }
+
+        // Display results
+        function showResults(data) {
+            const { prediction, all_predictions } = data;
+
+            // Set color based on ripeness
+            let color = '#4CAF50'; // default green
+            if (prediction.label.includes('Rotten')) {
+                color = '#d32f2f'; // red
+            } else if (prediction.label.includes('Unripe')) {
+                color = '#ff9800'; // orange
+            }
+
+            // Show main prediction
+            predictionText.textContent = prediction.label;
+            predictionText.style.color = color;
+            confidenceText.textContent = `Confidence: ${prediction.confidence}%`;
+            confidenceFill.style.width = `${prediction.confidence}%`;
+            confidenceFill.style.background = color;
+
+            // Show all predictions
+            allPredictionsList.innerHTML = '';
+            // Sort by confidence
+            const sorted = Object.entries(all_predictions).sort((a, b) => b[1] - a[1]);
+            for (const [className, confidence] of sorted) {
+                const div = document.createElement('div');
+                div.className = 'prediction-item';
+                div.innerHTML = `
+                    <span>${className}</span>
+                    <span>${confidence.toFixed(1)}%</span>
+                `;
+                allPredictionsList.appendChild(div);
+            }
+
+            resultContainer.classList.add('show');
+        }
+
+        // Display error
+        function showError(message) {
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+    </script>
+</body>
+</html>

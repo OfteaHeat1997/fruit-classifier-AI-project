@@ -80,7 +80,7 @@ def init_database():
     print("Initializing database...")
 
     # Step 1: Connect to database
-    # WHY? Opens connection to database file (creates if doesn't exist)
+    # WHY? Opens connection to database file
     conn = sqlite3.connect(DB_PATH)
 
     # Step 2: Create cursor
@@ -101,6 +101,11 @@ def init_database():
             source TEXT
         )
     ''')
+
+
+
+
+
 
     # Step 4: Save changes
     # WHY? Changes are NOT saved until commit() is called

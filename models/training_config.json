@@ -1,6 +1,14 @@
 {
-  "training_date": "2025-10-30T00:43:10.959064",
+  "training_date": "2025-11-02T19:57:39.324627",
+  "model_architecture": "MobileNetV2 + Custom Head",
+  "image_size": 224,
+  "batch_size": 32,
+  "epochs": 20,
+  "learning_rate": 0.0001,
   "num_classes": 9,
+  "training_samples": 16217,
+  "final_val_accuracy": 0.9732548594474792,
+  "final_val_loss": 0.07451283186674118,
   "class_names": [
     "freshapples",
     "freshbanana",
@@ -11,13 +19,5 @@
     "unripe apple",
     "unripe banana",
     "unripe orange"
-  ],
-  "num_training_images": 16217,
-  "num_test_images": 3739,
-  "image_size": 224,
-  "batch_size": 32,
-  "epochs_trained": 50,
-  "final_test_accuracy": 0.9983952641487122,
-  "final_test_loss": 0.012115330435335636,
-  "class_weights": {
-    
+  ]
+}

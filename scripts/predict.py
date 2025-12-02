@@ -146,6 +146,7 @@ def load_and_preprocess_image(image_path):
         so the model can understand it
     """
 
+
     # Step 1: Open image
     # WHY? Load the image file into memory
     img = Image.open(image_path)
